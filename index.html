@@ -84,8 +84,12 @@
                             <h2 class="animate-text-delay-1">Data Engineer</h2>
                             <p class="animate-text-delay-2">Transforming raw data into meaningful insights</p>
                             <div class="hero-buttons">
-                                <a href="#projects" class="btn btn-primary">View Projects</a>
-                                <a href="#contact" class="btn btn-outline-primary">Get in Touch</a>
+                                <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#resumeModal">
+                                    <i class="fas fa-file-pdf me-2"></i>View Resume
+                                </button>
+                                <a href="/assets/Abdul_Azim_Data_Egnineer_2YOE.pdf" download class="btn btn-outline-primary">
+                                    <i class="fas fa-download me-2"></i>Download CV
+                                </a>
                             </div>
                             <div class="social-links">
                                 <a href="https://linkedin.com/in/yourusername" target="_blank" class="social-btn linkedin">
@@ -139,6 +143,29 @@
             </div>
         </div>
     </section>
+
+    <!-- Resume Modal -->
+    <div class="modal fade" id="resumeModal" tabindex="-1" aria-labelledby="resumeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resumeModalLabel">My Resume</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-1x1">
+                        <iframe src="/assets/Abdul_Azim_Data_Egnineer_2YOE.pdf" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="/assets/Abdul_Azim_Data_Egnineer_2YOE.pdf" download class="btn btn-primary">
+                        <i class="fas fa-download me-2"></i>Download Resume
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section id="about" class="about">

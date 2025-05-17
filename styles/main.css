@@ -2339,3 +2339,95 @@ html {
         padding: 2rem 1.5rem;
     }
 }
+
+/* Resume Modal Styles */
+.modal-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 1.5rem;
+}
+
+.modal-title {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.btn-close {
+    color: var(--text-color);
+}
+
+.modal-body iframe {
+    width: 100%;
+    height: 85vh;
+    border: none;
+    background: white;
+}
+
+/* Hero Button Styles */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+@media (min-width: 992px) {
+    .hero-buttons {
+        justify-content: flex-start;
+    }
+}
+
+.hero-buttons .btn {
+    padding: 0.8rem 1.5rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--glass-shadow);
+}
+
+.hero-buttons .btn i {
+    font-size: 1.1rem;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .modal-content {
+    background: rgba(31, 41, 55, 0.95);
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}
