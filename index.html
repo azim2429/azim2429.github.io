@@ -30,44 +30,473 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand animate-text" href="#home">AZ</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link active animate-text-delay-1" href="#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link animate-text-delay-2" href="#about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link animate-text-delay-3" href="#experience">Experience</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link animate-text-delay-4" href="#skills">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link animate-text-delay-5" href="#projects">Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link animate-text-delay-6" href="#contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <button id="theme-toggle" class="theme-toggle animate-text-delay-7">
-                                <i class="fas fa-moon"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Side Navigation -->
+    <nav class="side-nav hidden">
+        <button class="nav-toggle" aria-label="Toggle Menu">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="nav-card">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#home">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#experience">
+                        <i class="fas fa-briefcase"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">
+                        <i class="fas fa-code"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">
+                        <i class="fas fa-rocket"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#certifications">
+                        <i class="fas fa-certificate"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <style>
+    /* Side Navigation Styles */
+    .side-nav {
+        position: fixed;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    .side-nav.hidden {
+        transform: translate(calc(100% + 2rem), -50%);
+    }
+
+    .nav-toggle {
+        position: absolute;
+        left: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-toggle:hover {
+        background: rgba(var(--primary-color-rgb), 0.1);
+        border-color: rgba(var(--primary-color-rgb), 0.2);
+    }
+
+    .side-nav.hidden .nav-toggle {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .nav-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 1.2rem 0.8rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-link {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        color: var(--text-color);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover {
+        background: rgba(var(--primary-color-rgb), 0.1);
+        border-color: rgba(var(--primary-color-rgb), 0.2);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+    .nav-link i {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover i {
+        transform: scale(1.1);
+    }
+
+    .nav-link.active {
+        background: rgba(var(--primary-color-rgb), 0.15);
+        border-color: rgba(var(--primary-color-rgb), 0.3);
+        color: var(--primary-color);
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        .side-nav {
+            right: 0;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            transform: translateY(0);
+            width: 100%;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .side-nav.hidden {
+            transform: translateY(100%);
+        }
+
+        .nav-toggle {
+            left: 50%;
+            top: -30px;
+            transform: translateX(-50%) rotate(-90deg);
+            z-index: 1001;
+        }
+
+        .side-nav.hidden .nav-toggle {
+            transform: translateX(-50%) rotate(90deg);
+        }
+
+        .nav-card {
+            padding: 0.5rem;
+            border-radius: 15px;
+            width: 100%;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .nav-list {
+            flex-direction: row;
+            justify-content: space-around;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            width: 35px;
+            height: 35px;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    /* Remove previous hero padding */
+    .hero {
+        padding-top: 0;
+    }
+
+    /* Enhanced Animation Keyframes */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes slideInRight {
+        0% { 
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        100% { 
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInLeft {
+        0% { 
+            transform: translateX(-100px);
+            opacity: 0;
+        }
+        100% { 
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        0% {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* Enhanced Base Animations */
+    .animate-text {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .animate-text-delay-1 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    }
+
+    .animate-text-delay-2 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.4s forwards;
+    }
+
+    .animate-text-delay-3 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Enhanced Section Transitions */
+    section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Enhanced Navigation Animations */
+    .nav-link {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover {
+        transform: translateY(-3px) scale(1.1);
+    }
+
+    .nav-link.active {
+        animation: pulse 2s infinite;
+    }
+
+    /* Enhanced Card Animations */
+    .project-card,
+    .certificate-card,
+    .skill-category {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(0);
+    }
+
+    .project-card:hover,
+    .certificate-card:hover,
+    .skill-category:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Enhanced Tech Stack Animations */
+    .tech-item {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: scaleIn 0.6s ease-out forwards;
+        animation-delay: var(--delay);
+    }
+
+    .tech-item:hover {
+        transform: translateY(-5px) scale(1.05);
+    }
+
+    /* Enhanced Timeline Animations */
+    .timeline-item {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .timeline-item.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .timeline-item:nth-child(even) {
+        transform: translateX(50px);
+    }
+
+    /* Enhanced Skill List Animations */
+    .skill-item {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-item.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .skill-bullet {
+        transition: all 0.3s ease;
+    }
+
+    .skill-item:hover .skill-bullet {
+        transform: scale(1.2);
+        background: var(--primary-color);
+    }
+
+    /* Enhanced Hero Animations */
+    .hero-text h1 {
+        animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .hero-text h2 {
+        animation: slideInLeft 0.8s ease-out 0.2s forwards;
+    }
+
+    .hero-text p {
+        animation: slideInLeft 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero-buttons {
+        animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    }
+
+    .social-links {
+        animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    }
+
+    .hero-image {
+        animation: slideInRight 0.8s ease-out 0.4s forwards;
+    }
+
+    /* Enhanced Button Animations */
+    .btn {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease-out, height 0.6s ease-out;
+    }
+
+    .btn:active::after {
+        width: 200%;
+        height: 200%;
+    }
+
+    /* Enhanced Social Button Animations */
+    .social-btn {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+    }
+
+    .social-btn i {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-btn:hover i {
+        transform: rotate(360deg);
+    }
+
+    /* Smooth Scroll Behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Enhanced Loading Animation */
+    .loaded .hero-background .shape {
+        animation: float 6s ease-in-out infinite;
+        animation-delay: var(--delay);
+    }
+
+    .shape-1 { --delay: 0s; }
+    .shape-2 { --delay: 2s; }
+    .shape-3 { --delay: 4s; }
+    </style>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -83,7 +512,11 @@
                         <div class="hero-text text-center text-lg-start">
                             <h1 class="animate-text">Hi, I'm Abdul Azim</h1>
                             <h2 class="animate-text-delay-1">Data Engineer</h2>
-                            <p class="animate-text-delay-2">Transforming raw data into meaningful insights</p>
+                            <p class="animate-text-delay-2">
+                                <span class="static-text">An engineer </span>
+                                <span class="dynamic-text"></span>
+                                <span class="cursor">|</span>
+                            </p>
                             <div class="hero-buttons">
                                 <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#resumeModal">
                                     <i class="fas fa-file-pdf me-2"></i>View Resume
@@ -421,6 +854,9 @@
                             <span>Python</span>
                             <span>AWS</span>
                         </div>
+                        <a href="coming-soon.html" class="case-study-link">
+                            Read Case Study <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                     <div class="project-card animate-text-delay-2">
                         <div class="project-header">
@@ -433,6 +869,9 @@
                             <span>dbt</span>
                             <span>Python</span>
                         </div>
+                        <a href="coming-soon.html" class="case-study-link">
+                            Read Case Study <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                     <div class="project-card animate-text-delay-3">
                         <div class="project-header">
@@ -445,50 +884,90 @@
                             <span>Apache Flink</span>
                             <span>Redis</span>
                         </div>
+                        <a href="coming-soon.html" class="case-study-link">
+                            Read Case Study <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="section-glass">
-            <h2 class="section-title animate-text">Let's Connect</h2>
-            <div class="contact-container">
-                <div class="contact-info animate-text-delay-1">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>abdulazim.2429@gmail.com</p>
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <div class="section-glass">
+                <h2 class="section-title animate-text">Certifications</h2>
+                <div class="certificates-grid">
+                    <!-- DP400 Certificate -->
+                    <div class="certificate-card animate-text-delay-1">
+                        <a href="assets/DP400.png" target="_blank" class="certificate-link">
+                            <div class="certificate-image">
+                                <img src="assets/DP400.png" alt="Microsoft Certified: Azure Data Scientist Associate" loading="lazy">
+                                <div class="certificate-overlay">
+                                    <span class="view-text">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        View Full Certificate
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="certificate-info">
+                                <h3>Azure Data Scientist Associate</h3>
+                                <p>Microsoft Certification</p>
+                                <div class="certificate-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>2024</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin"></i>
-                        <p>linkedin.com/in/azim-abdul</p>
+
+                    <!-- DP203 Certificate -->
+                    <div class="certificate-card animate-text-delay-2">
+                        <a href="assets/DP203.png" target="_blank" class="certificate-link">
+                            <div class="certificate-image">
+                                <img src="assets/DP203.png" alt="Microsoft Certified: Azure Data Engineer Associate" loading="lazy">
+                                <div class="certificate-overlay">
+                                    <span class="view-text">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        View Full Certificate
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="certificate-info">
+                                <h3>Azure Data Engineer Associate</h3>
+                                <p>Microsoft Certification</p>
+                                <div class="certificate-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>2023</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <p>github.com/azim2429</p>
+
+                    <!-- DCDEA Certificate -->
+                    <div class="certificate-card animate-text-delay-3">
+                        <a href="assets/DCDEA.png" target="_blank" class="certificate-link">
+                            <div class="certificate-image">
+                                <img src="assets/DCDEA.png" alt="Databricks Certified Data Engineer Associate" loading="lazy">
+                                <div class="certificate-overlay">
+                                    <span class="view-text">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        View Full Certificate
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="certificate-info">
+                                <h3>Data Engineer Associate</h3>
+                                <p>Databricks Certification</p>
+                                <div class="certificate-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>2023</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <form id="contact-form" class="contact-form animate-text-delay-2" target="_blank" action="https://formsubmit.co/abdulazim0402@gmail.com" method="POST">
-                    <!-- Honeypot -->
-                    <input type="text" name="_honey" style="display: none;">
-                    <!-- Disable Captcha -->
-                    <input type="hidden" name="_captcha" value="false">
-                    <!-- Success Page -->
-                    <input type="hidden" name="_next" value="https://azim2429.github.io/thank-you.html">
-                    
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required placeholder="Your Email">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" required placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
             </div>
         </div>
     </section>
@@ -506,44 +985,76 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const body = document.body;
+    document.addEventListener('DOMContentLoaded', function() {
+        const sideNav = document.querySelector('.side-nav');
+        const navToggle = document.querySelector('.nav-toggle');
+        const themeToggle = document.getElementById('theme-toggle');
         
-        // Set dark mode as default
-        if (!body.dataset.theme) {
-            body.dataset.theme = 'dark';
-            themeToggle.querySelector('i').className = 'fas fa-sun';
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-            themeToggle.querySelector('i').className = 
-                body.dataset.theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        // Theme toggle functionality with animation
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            icon.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+                icon.className = body.dataset.theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                icon.style.transform = 'rotate(0deg)';
+            }, 300);
         });
 
-        // Intersection Observer for section animations
+        // Enhanced menu toggle functionality
+        navToggle.addEventListener('click', function() {
+            sideNav.classList.toggle('hidden');
+            this.style.transform = sideNav.classList.contains('hidden') 
+                ? 'translateY(-50%) rotate(180deg)' 
+                : 'translateY(-50%) rotate(0deg)';
+        });
+
+        // Set dark mode as default
+        if (!document.body.dataset.theme) {
+            document.body.dataset.theme = 'dark';
+            themeToggle.querySelector('i').className = 'fas fa-moon';
+        }
+
+        // Enhanced intersection observer for sections
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     
-                    // Animate children with delays
+                    // Animate children with enhanced delays
                     const animatedElements = entry.target.querySelectorAll(
-                        '.animate-text, .animate-text-delay-1, .animate-text-delay-2, .animate-text-delay-3, .animate-text-delay-4'
+                        '.animate-text, .animate-text-delay-1, .animate-text-delay-2, .animate-text-delay-3'
                     );
                     
                     animatedElements.forEach((el, index) => {
+                        el.style.transitionDelay = `${index * 0.2}s`;
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+
+                    // Animate timeline items
+                    const timelineItems = entry.target.querySelectorAll('.timeline-item');
+                    timelineItems.forEach((item, index) => {
                         setTimeout(() => {
-                            el.style.opacity = '1';
-                            el.style.transform = 'translateY(0)';
+                            item.classList.add('visible');
                         }, index * 200);
+                    });
+
+                    // Animate skill items
+                    const skillItems = entry.target.querySelectorAll('.skill-item');
+                    skillItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, index * 100);
                     });
                 }
             });
         }, { 
             threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '-50px'
         });
 
         // Observe all sections
@@ -551,7 +1062,7 @@
             sectionObserver.observe(section);
         });
 
-        // Active link handling
+        // Enhanced active link handling with smooth transitions
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('section');
 
@@ -573,32 +1084,34 @@
             });
         }
 
+        // Smooth scroll handling
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
         window.addEventListener('scroll', setActiveLink);
         window.addEventListener('load', setActiveLink);
-
-        // Form handling
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const submitBtn = contactForm.querySelector('.submit-btn');
-                submitBtn.classList.add('loading');
-                
-                // Simulate form submission
-                setTimeout(() => {
-                    submitBtn.classList.remove('loading');
-                    alert('Message sent successfully!');
-                    contactForm.reset();
-                }, 1500);
-            });
-        }
 
         // Initialize animations on load
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
             
-            // Animate hero section elements
-            const heroElements = document.querySelectorAll('.hero .animate-text, .hero .animate-text-delay-1, .hero .animate-text-delay-2, .hero .animate-text-delay-3, .hero .animate-text-delay-4');
+            // Animate hero section elements with cascade effect
+            const heroElements = document.querySelectorAll(
+                '.hero .animate-text, .hero .animate-text-delay-1, .hero .animate-text-delay-2, .hero .animate-text-delay-3'
+            );
             
             heroElements.forEach((el, index) => {
                 setTimeout(() => {
@@ -606,7 +1119,59 @@
                     el.style.transform = 'translateY(0)';
                 }, index * 200);
             });
+
+            // Initialize floating shapes
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                shape.style.animationDelay = `${index * 2}s`;
+            });
         });
+
+        // Typing Animation with enhanced timing
+        const dynamicText = document.querySelector(".dynamic-text");
+        const phrases = [
+            "who makes data speak",
+            "who crafts clarity from complexity",
+            "who cares about data"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isWaiting = false;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            const isLastPhrase = phraseIndex === phrases.length - 1;
+            
+            if (isDeleting && charIndex > 0) {
+                dynamicText.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else if (!isDeleting && charIndex < currentPhrase.length) {
+                dynamicText.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+            } else if (!isDeleting && charIndex === currentPhrase.length) {
+                if (isLastPhrase) {
+                    return;
+                }
+                
+                isWaiting = true;
+                setTimeout(() => {
+                    isDeleting = true;
+                    isWaiting = false;
+                    typeEffect();
+                }, 2000);
+                return;
+            }
+
+            const typingSpeed = isDeleting ? 50 : isWaiting ? 3000 : 100;
+            setTimeout(typeEffect, typingSpeed);
+        }
+
+        setTimeout(typeEffect, 1000);
+    });
     </script>
 </body>
 </html> 
