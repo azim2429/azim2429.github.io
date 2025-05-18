@@ -213,12 +213,12 @@ body {
         transform: translateY(0);
     }
 
-    .nav-links a:nth-child(1) { transition-delay: 0.1s; }
-    .nav-links a:nth-child(2) { transition-delay: 0.2s; }
-    .nav-links a:nth-child(3) { transition-delay: 0.3s; }
-    .nav-links a:nth-child(4) { transition-delay: 0.4s; }
-    .nav-links a:nth-child(5) { transition-delay: 0.5s; }
-    .nav-links a:nth-child(6) { transition-delay: 0.6s; }
+    .nav-links a:nth-child(1) { transition-delay: 0.05s; }
+    .nav-links a:nth-child(2) { transition-delay: 0.1s; }
+    .nav-links a:nth-child(3) { transition-delay: 0.15s; }
+    .nav-links a:nth-child(4) { transition-delay: 0.2s; }
+    .nav-links a:nth-child(5) { transition-delay: 0.25s; }
+    .nav-links a:nth-child(6) { transition-delay: 0.3s; }
 
     .theme-toggle {
         position: fixed;
@@ -334,8 +334,8 @@ body.menu-open {
     border-radius: 15px;
     padding: 1rem;
     text-align: center;
-    animation: fadeInUp 0.6s ease-out forwards;
-    animation-delay: var(--delay);
+    animation: fadeInUp 0.4s ease forwards;
+    animation-delay: var(--delay, 0s);
     opacity: 0;
 }
 
@@ -547,21 +547,18 @@ body.menu-open {
 /* Animations */
 @keyframes float {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0);
     }
-    25% {
-        transform: translateY(-15px) rotate(2deg);
-    }
-    75% {
-        transform: translateY(15px) rotate(-2deg);
+    50% {
+        transform: translateY(-10px);
     }
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
-        filter: blur(5px);
+        transform: translateY(20px);
+        filter: blur(2px);
     }
     to {
         opacity: 1;
@@ -573,8 +570,8 @@ body.menu-open {
 @keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateX(-30px);
-        filter: blur(5px);
+        transform: translateX(-20px);
+        filter: blur(2px);
     }
     to {
         opacity: 1;
@@ -586,8 +583,8 @@ body.menu-open {
 @keyframes fadeInRight {
     from {
         opacity: 0;
-        transform: translateX(30px);
-        filter: blur(5px);
+        transform: translateX(20px);
+        filter: blur(2px);
     }
     to {
         opacity: 1;
@@ -599,8 +596,8 @@ body.menu-open {
 @keyframes scaleIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
-        filter: blur(5px);
+        transform: scale(0.95);
+        filter: blur(2px);
     }
     to {
         opacity: 1;
@@ -610,27 +607,27 @@ body.menu-open {
 }
 
 .animate-text {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .animate-text-delay-1 {
-    animation: fadeInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+    animation: fadeInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
 }
 
 .animate-text-delay-2 {
-    animation: fadeInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+    animation: fadeInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
 }
 
 .animate-text-delay-3 {
-    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
 }
 
 .animate-text-delay-4 {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
 }
 
 .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
 }
 
 /* Responsive Design */
@@ -794,7 +791,7 @@ section:first-of-type {
     backdrop-filter: blur(5px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 2.5rem;
+    padding: 1rem;
     position: relative;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: grid;
@@ -812,7 +809,7 @@ section:first-of-type {
     border: 4px solid var(--background-color);
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
     top: 2.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; 
 }
 
 .timeline-item .timeline-content::before {
@@ -945,13 +942,13 @@ section:first-of-type {
 /* Experience Section Responsive */
 @media (max-width: 992px) {
     .timeline::before {
-        left: 2rem;
+        left: 1rem;
     }
 
     .timeline-item,
     .timeline-item:nth-child(even) {
         justify-content: flex-start;
-        padding-left: 4rem;
+        padding-left: 2.5rem;
         padding-right: 0;
     }
 
@@ -961,30 +958,50 @@ section:first-of-type {
 
     .timeline-item .timeline-content::before,
     .timeline-item:nth-child(even) .timeline-content::before {
-        left: -3.5rem;
+        left: -2rem;
         right: auto;
     }
 }
 
 @media (max-width: 768px) {
     .timeline::before {
-        left: 1.5rem;
+        left: 0.75rem;
     }
 
     .timeline-item,
     .timeline-item:nth-child(even) {
-        padding-left: 3rem;
+        padding-left: 2rem;
+        padding-right: 0;
     }
 
     .timeline-content {
-        padding: 1.8rem;
+        padding: 1.5rem;
+        width: calc(100% - 1rem);
     }
 
     .timeline-item .timeline-content::before,
     .timeline-item:nth-child(even) .timeline-content::before {
-        width: 16px;
-        height: 16px;
-        left: -2.8rem;
+        width: 12px;
+        height: 12px;
+        left: -1.75rem;
+        border-width: 2px;
+    }
+
+    .timeline-header {
+        flex-direction: column;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.4rem;
+    }
+
+    .timeline-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .timeline-content ul li {
+        font-size: 1rem;
+        padding-left: 1.5rem;
     }
 }
 
@@ -1550,20 +1567,139 @@ section {
     }
 }
 
-/* Animation Timing Consistency */
+/* Animation Base Classes */
 .animate-text,
 .animate-text-delay-1,
 .animate-text-delay-2,
 .animate-text-delay-3,
 .animate-text-delay-4 {
-    animation-duration: 0.6s;
-    animation-timing-function: ease-out;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-.animate-text-delay-1 { animation-delay: 0.2s; }
-.animate-text-delay-2 { animation-delay: 0.4s; }
-.animate-text-delay-3 { animation-delay: 0.6s; }
-.animate-text-delay-4 { animation-delay: 0.8s; }
+.animate-text-delay-1 { transition-delay: 0.1s; }
+.animate-text-delay-2 { transition-delay: 0.2s; }
+.animate-text-delay-3 { transition-delay: 0.3s; }
+.animate-text-delay-4 { transition-delay: 0.4s; }
+
+/* Section Visibility */
+section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Update animation keyframes duration */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Update animation classes with faster durations */
+.animate-text {
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-text-delay-1 {
+    animation: fadeInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+.animate-text-delay-2 {
+    animation: fadeInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+.animate-text-delay-3 {
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+}
+
+.animate-text-delay-4 {
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+}
+
+/* Update tech stack animation */
+.tech-item {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.4s ease forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+/* Update floating animation to be smoother */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Update mobile navigation delays */
+@media (max-width: 768px) {
+    .nav-links a:nth-child(1) { transition-delay: 0.05s; }
+    .nav-links a:nth-child(2) { transition-delay: 0.1s; }
+    .nav-links a:nth-child(3) { transition-delay: 0.15s; }
+    .nav-links a:nth-child(4) { transition-delay: 0.2s; }
+    .nav-links a:nth-child(5) { transition-delay: 0.25s; }
+    .nav-links a:nth-child(6) { transition-delay: 0.3s; }
+}
 
 /* Consistent Hover Effects */
 .hover-effect {
@@ -1740,23 +1876,23 @@ body,
 
 /* Improved Animation Classes */
 .animate-text {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .animate-text-delay-1 {
-    animation: fadeInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+    animation: fadeInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
 }
 
 .animate-text-delay-2 {
-    animation: fadeInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+    animation: fadeInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
 }
 
 .animate-text-delay-3 {
-    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
 }
 
 .animate-text-delay-4 {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
 }
 
 /* Improved Card Hover Effects */
@@ -1807,19 +1943,19 @@ body,
 .animate-text-delay-4 {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-.animate-text-delay-1 { transition-delay: 0.2s; }
-.animate-text-delay-2 { transition-delay: 0.4s; }
-.animate-text-delay-3 { transition-delay: 0.6s; }
-.animate-text-delay-4 { transition-delay: 0.8s; }
+.animate-text-delay-1 { transition-delay: 0.1s; }
+.animate-text-delay-2 { transition-delay: 0.2s; }
+.animate-text-delay-3 { transition-delay: 0.3s; }
+.animate-text-delay-4 { transition-delay: 0.4s; }
 
 /* Section Visibility */
 section {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 section.visible {
@@ -1939,7 +2075,7 @@ section.visible {
 }
 
 .hero-image {
-    animation: float 6s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -1947,7 +2083,7 @@ section.visible {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-10px);
     }
 }
 
@@ -1959,8 +2095,8 @@ section.visible {
 
 .tech-item {
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
+    transform: translateY(10px);
+    animation: fadeInUp 0.4s ease forwards;
     animation-delay: var(--delay, 0s);
 }
 
