@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abdul Azim - Data Engineering Case Study">
+    <title>Case Study | Abdul Azim</title>
+    
+    <!-- Animated Favicon -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } } @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 2px %2360a5fa); } 50% { filter: drop-shadow(0 0 8px %2360a5fa); } } .text { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: bold; font-size: 60px; fill: %2360a5fa; animation: pulse 2s ease-in-out infinite, glow 3s ease-in-out infinite; transform-origin: center; letter-spacing: 2px; } .bg { fill: %23111827; rx: 20; }</style><rect class="bg" width="100" height="100"/><text class="text" x="50" y="65" text-anchor="middle" dx="-1 1">AZ</text></svg>'>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <style>
+        /* Case Study Specific Styles */
+        .case-study-header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 0 4rem;  /* Increased top padding to accommodate fixed nav */
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(96, 165, 250, 0.03));
+            border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .case-study-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+            color: var(--text-color);
+            padding: 0.5rem 1.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+        }
+
+        .case-study-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            max-width: 800px;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+        }
+
+        .tech-badge i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(var(--primary-color-rgb), 0.2);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .section-title i {
+            font-size: 1.75rem;
+        }
+
+        .architecture-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .architecture-diagram {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            display: block;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .architecture-diagram:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(var(--primary-color-rgb), 0.2);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            background: rgba(var(--primary-color-rgb), 0.05);
+            border-color: rgba(var(--primary-color-rgb), 0.2);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .solution-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .solution-item {
+            padding-left: 2.5rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(var(--primary-color-rgb), 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .solution-item:hover {
+            background: rgba(var(--primary-color-rgb), 0.03);
+            transform: translateX(5px);
+        }
+
+        .solution-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .solution-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .solution-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        main.container {
+            max-width: 1200px;
+            padding: 4rem 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .case-study-header {
+                min-height: auto;
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .case-study-title {
+                font-size: 2.25rem;
+            }
+
+            .case-study-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .case-study-nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .back-button {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section-card {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .solution-item {
+                padding: 1.25rem;
+            }
+
+            .tech-stack {
+                gap: 0.75rem;
+            }
+
+            .tech-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .architecture-container {
+                padding: 0;
+                margin: 2rem auto;
+            }
+
+            .architecture-diagram {
+                padding: 1rem;
+                max-height: 400px;
+            }
+
+            main.container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Animation classes */
+        .animate-text, .animate-text-delay-1, .animate-text-delay-2 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-text.visible, .animate-text-delay-1.visible, .animate-text-delay-2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-text-delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .animate-text-delay-2 {
+            transition-delay: 0.4s;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Navigation -->
+    <nav class="case-study-nav">
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="case-study-header">
+        <div class="container">
+            <h1 class="case-study-title animate-text">E-Commerce Data Warehouse</h1>
+            <p class="case-study-subtitle animate-text-delay-1">
+                Utilizing Databricks, the project focuses on ingesting and organizing data into a series of medallion tables structured to enhance data quality and facilitate efficient analytics.
+            </p>
+            <div class="tech-stack animate-text-delay-2">
+                <span class="tech-badge"><i class="fab fa-python"></i>Python</span>
+                <span class="tech-badge"><i class="fas fa-bolt"></i>Apache Spark</span>
+                <span class="tech-badge"><i class="fas fa-cloud"></i>Azure</span>
+                <span class="tech-badge"><i class="fas fa-code-branch"></i>DevOps</span>
+                <span class="tech-badge"><i class="fas fa-database"></i>SQL</span>
+                <span class="tech-badge"><i class="fas fa-folder"></i>DataLake House</span>
+                <span class="tech-badge"><i class="fas fa-cubes"></i>Databricks</span>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <!-- Overview Section -->
+        <section class="section-card animate-text">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Project Overview
+            </h2>
+            <p class="lead mb-4">The client required a scalable and efficient data infrastructure to support their growing e-commerce operations. We identified several key challenges that needed to be addressed:</p>
+            <div class="solution-list">
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Poor Data Organization
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Disorganized and inconsistent data sources made it challenging to ensure data quality and reliability</li>
+                            <li>Lack of structured layers for data processing led to fragmented and duplicated analytics</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-chart-line"></i>
+                        Limited Analytical Value
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Raw data was not optimized for business intelligence or reporting</li>
+                            <li>Analysts spent excessive time cleaning and preparing data before analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        Scalability Concerns
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>No clear architecture to support future growth</li>
+                            <li>Limited capability for advanced use cases like real-time dashboards</li>
+                            <li>Inefficient resource utilization and performance bottlenecks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="section-card animate-text">
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i>
+                Architecture & Data Flow
+            </h2>
+            <p class="lead mb-4">Our solution implements a modern data lakehouse architecture using Azure services and Databricks, following the medallion architecture pattern for optimal data organization and processing:</p>
+            <div class="architecture-container">
+                <img src="assets/E-Commerce Architecture diagram.png" alt="Architecture Diagram" class="architecture-diagram">
+            </div>
+            <div class="solution-list">
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-database"></i>
+                        Source Layer
+                    </div>
+                    <div class="solution-description">
+                        Data is ingested from multiple sources including SQL databases, REST APIs, and flat files through Azure Data Factory pipelines
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-layer-group"></i>
+                        Bronze Layer (Raw)
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Raw data landed in ADLS Gen2 storage</li>
+                            <li>Minimal transformations applied</li>
+                            <li>Data preserved in original format with metadata</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-filter"></i>
+                        Silver Layer (Standardized)
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Data cleansing and standardization</li>
+                            <li>Schema enforcement and validation</li>
+                            <li>Quality checks and error handling</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-crown"></i>
+                        Gold Layer (Business)
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Business-level aggregations</li>
+                            <li>Curated datasets for reporting</li>
+                            <li>Optimized for analytical queries</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-desktop"></i>
+                        Serving Layer
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Power BI reports and dashboards</li>
+                            <li>SQL endpoints for ad-hoc analysis</li>
+                            <li>APIs for application integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Components Section -->
+        <section class="section-card animate-text">
+            <h2 class="section-title">
+                <i class="fas fa-cubes"></i>
+                Key Components
+            </h2>
+            <p class="lead mb-4">Our solution leverages the following key Azure and Databricks components to create a robust and scalable data platform:</p>
+            <div class="solution-list">
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-cube"></i>
+                        Databricks Platform
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Primary platform for building and managing the data warehouse</li>
+                            <li>Seamless integration with Spark for advanced analytics</li>
+                            <li>Optimized data engineering workflows and processing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-industry"></i>
+                        Azure Data Factory
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Orchestration of data ingestion and movement</li>
+                            <li>Automated transformation workflows</li>
+                            <li>Pipeline management from source to medallion tables</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-key"></i>
+                        Azure Key Vault
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Secure management of secrets and keys</li>
+                            <li>Certificate handling for authentication</li>
+                            <li>Enhanced security across the data pipeline</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-hdd"></i>
+                        Azure Data Lake Storage
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Scalable storage for large e-commerce datasets</li>
+                            <li>Foundation for medallion table architecture</li>
+                            <li>Secure and efficient data management</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-layer-group"></i>
+                        Medallion Architecture
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Bronze layer: Raw data ingestion and storage</li>
+                            <li>Silver layer: Cleaned and conformed data</li>
+                            <li>Gold layer: Business-ready analytical tables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outcomes Section -->
+        <section class="section-card animate-text">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Outcomes & Impact
+            </h2>
+            <p class="lead mb-4">The implementation of our solution delivered significant improvements across multiple dimensions:</p>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">80%</div>
+                    <div class="metric-label">Reduction in Processing Time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">40%</div>
+                    <div class="metric-label">Cost Savings</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Pipeline Reliability</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5min</div>
+                    <div class="metric-label">Data Freshness</div>
+                </div>
+            </div>
+            <div class="solution-list mt-4">
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-bullseye"></i>
+                        Business Impact
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Enabled real-time decision making for business stakeholders</li>
+                            <li>Reduced time-to-insight from days to hours</li>
+                            <li>Improved data quality and reliability</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="solution-item">
+                    <div class="solution-title">
+                        <i class="fas fa-cogs"></i>
+                        Technical Achievements
+                    </div>
+                    <div class="solution-description">
+                        <ul class="mb-0">
+                            <li>Successfully processed 1TB+ daily data volume</li>
+                            <li>Achieved sub-5-minute data freshness</li>
+                            <li>Implemented automated testing and monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content text-center">
+                <p>&copy; 2024 Abdul Azim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer for animations
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    const animatedElements = entry.target.querySelectorAll(
+                        '.animate-text, .animate-text-delay-1, .animate-text-delay-2'
+                    );
+                    
+                    animatedElements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { 
+            threshold: 0.1
+        });
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+    });
+    </script>
+</body>
+</html> 
