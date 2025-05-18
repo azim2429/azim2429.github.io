@@ -10,11 +10,12 @@
     <meta property="og:description" content="Experienced Data Engineer specializing in building scalable data solutions">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#60a5fa">
+    <meta name="color-scheme" content="dark">
     
     <title>Abdul Azim | Data Engineer</title>
     
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>AZ</text></svg>">
+    <!-- Animated Favicon -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><style>@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } } @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 2px %2360a5fa); } 50% { filter: drop-shadow(0 0 8px %2360a5fa); } } .text { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: bold; font-size: 60px; fill: %2360a5fa; animation: pulse 2s ease-in-out infinite, glow 3s ease-in-out infinite; transform-origin: center; letter-spacing: 2px; } .bg { fill: %23111827; rx: 20; }</style><rect class="bg" width="100" height="100"/><text class="text" x="50" y="65" text-anchor="middle" dx="-1 1">AZ</text></svg>'>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
@@ -110,13 +111,13 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nav-toggle:hover {
-        background: rgba(var(--primary-color-rgb), 0.1);
-        border-color: rgba(var(--primary-color-rgb), 0.2);
+    .nav-toggle i {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: rotate(0deg);
     }
 
-    .side-nav.hidden .nav-toggle {
-        transform: translateY(-50%) rotate(180deg);
+    .side-nav.hidden .nav-toggle i {
+        transform: rotate(180deg);
     }
 
     .nav-card {
@@ -204,12 +205,15 @@
         .nav-toggle {
             left: 50%;
             top: -30px;
-            transform: translateX(-50%) rotate(-90deg);
-            z-index: 1001;
+            transform: translateX(-50%);
         }
 
-        .side-nav.hidden .nav-toggle {
-            transform: translateX(-50%) rotate(90deg);
+        .nav-toggle i {
+            transform: rotate(-90deg);
+        }
+
+        .side-nav.hidden .nav-toggle i {
+            transform: rotate(90deg);
         }
 
         .nav-card {
@@ -236,9 +240,69 @@
         }
     }
 
-    /* Remove previous hero padding */
+    /* Enhanced Hero Section Styles */
     .hero {
-        padding-top: 0;
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    .hero .container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        padding: 2rem;
+    }
+
+    .hero-glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+        padding: 3rem 2rem;
+        margin: 0 auto;
+    }
+
+    .hero-text {
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding-bottom: 60px; /* Account for bottom navigation */
+        }
+
+        .hero-glass {
+            padding: 2rem 1rem;
+        }
+
+        .hero .container {
+            padding: 1rem;
+        }
+
+        .hero-text {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    /* Ensure content after hero doesn't overlap */
+    #about {
+        margin-top: 0;
+        padding-top: 4rem;
     }
 
     /* Enhanced Animation Keyframes */
@@ -496,6 +560,19 @@
     .shape-1 { --delay: 0s; }
     .shape-2 { --delay: 2s; }
     .shape-3 { --delay: 4s; }
+
+    /* Mobile Experience Section Fix */
+    @media (max-width: 768px) {
+        .experience .timeline-item {
+            opacity: 1;
+            transform: translateX(0) !important;
+            transition: none;
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(0) !important;
+        }
+    }
     </style>
 
     <!-- Hero Section -->
@@ -988,37 +1065,59 @@
     document.addEventListener('DOMContentLoaded', function() {
         const sideNav = document.querySelector('.side-nav');
         const navToggle = document.querySelector('.nav-toggle');
+        const navIcon = navToggle.querySelector('i');
         const themeToggle = document.getElementById('theme-toggle');
         
+        // Set dark mode as default
+        document.body.dataset.theme = 'dark';
+        themeToggle.querySelector('i').className = 'fas fa-moon';
+        
+        // Enhanced menu toggle functionality with proper rotation
+        navToggle.addEventListener('click', function() {
+            sideNav.classList.toggle('hidden');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                navIcon.style.transform = sideNav.classList.contains('hidden') 
+                    ? 'rotate(90deg)' 
+                    : 'rotate(-90deg)';
+            } else {
+                navIcon.style.transform = sideNav.classList.contains('hidden') 
+                    ? 'rotate(180deg)' 
+                    : 'rotate(0deg)';
+            }
+        });
+
+        // Update arrow rotation on window resize
+        window.addEventListener('resize', function() {
+            const isMobile = window.innerWidth <= 768;
+            const isHidden = sideNav.classList.contains('hidden');
+            
+            if (isMobile) {
+                navIcon.style.transform = isHidden 
+                    ? 'rotate(90deg)' 
+                    : 'rotate(-90deg)';
+            } else {
+                navIcon.style.transform = isHidden 
+                    ? 'rotate(180deg)' 
+                    : 'rotate(0deg)';
+            }
+        });
+
         // Theme toggle functionality with animation
         themeToggle.addEventListener('click', function(e) {
             e.preventDefault();
-            const body = document.body;
             const icon = themeToggle.querySelector('i');
             
             icon.style.transform = 'rotate(360deg)';
             setTimeout(() => {
-                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-                icon.className = body.dataset.theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+                icon.className = document.body.dataset.theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
                 icon.style.transform = 'rotate(0deg)';
             }, 300);
         });
 
-        // Enhanced menu toggle functionality
-        navToggle.addEventListener('click', function() {
-            sideNav.classList.toggle('hidden');
-            this.style.transform = sideNav.classList.contains('hidden') 
-                ? 'translateY(-50%) rotate(180deg)' 
-                : 'translateY(-50%) rotate(0deg)';
-        });
-
-        // Set dark mode as default
-        if (!document.body.dataset.theme) {
-            document.body.dataset.theme = 'dark';
-            themeToggle.querySelector('i').className = 'fas fa-moon';
-        }
-
-        // Enhanced intersection observer for sections
+        // Enhanced intersection observer for sections with mobile fixes
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1035,12 +1134,20 @@
                         el.style.transform = 'translateY(0)';
                     });
 
-                    // Animate timeline items
+                    // Animate timeline items with mobile check
                     const timelineItems = entry.target.querySelectorAll('.timeline-item');
+                    const isMobile = window.innerWidth <= 768;
+                    
                     timelineItems.forEach((item, index) => {
-                        setTimeout(() => {
+                        if (isMobile) {
                             item.classList.add('visible');
-                        }, index * 200);
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        } else {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 200);
+                        }
                     });
 
                     // Animate skill items
@@ -1053,8 +1160,8 @@
                 }
             });
         }, { 
-            threshold: 0.2,
-            rootMargin: '-50px'
+            threshold: 0.1, // Reduced threshold for better mobile detection
+            rootMargin: '0px' // Adjusted root margin
         });
 
         // Observe all sections
